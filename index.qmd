@@ -1,12 +1,19 @@
 ---
 title: Assignment #4
+authors: Hailey Wellenstein and Zujaja Baig
 format: html
 editor: visual
 editor_options: 
   chunk_output_type: console
+execute: 
+  warning: false
 ---
+# Introduction to assignment 
 
-# Data cleaning
+## Source of data: 
+[World Bank Databank](https://databank.worldbank.org/reports.aspx?source=2&Topic=1)
+
+## Data cleaning
 ```{r}
 #Data cleaning
 library(tidyverse)
