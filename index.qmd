@@ -67,7 +67,7 @@ WB_Agriculture_Indicators %>%
        y = "% in agricultural labor force",
        caption = "Source: World Bank, 2022")
 ```
-Our first visualization depicts how labor force participation in agriculture has changed from the year 2000 to the year 2020 in Central America. Understanding these trends are important for policymakers who are working in economic development in these countries, as well as is important for policymakers looking to address root causes of migration from Central America to the United States. From looking at the graph, we can see that there exists significant heterogeneity across Central America in terms of the amount of the labor force in agriculture. For example, in Guatemala, Honduras and Nicaragua these rates are at or above 30%, while in other countries such as Belize, Mexico, Costa Rica, and Panama, agriculture comprises less than 15% of labor.
+Our first visualization depicts how labor force participation in agriculture has changed from the year 2000 to the year 2020 in Central America. Understanding these trends is important for policymakers who are working in economic development in these countries, as well as is important for policymakers looking to address root causes of migration from Central America to the United States. From looking at the graph, we can see that there exists significant heterogeneity across Central America in terms of the amount of the labor force in agriculture. For example, in Guatemala, Honduras and Nicaragua these rates are at or above 30%, while in other countries such as Belize, Mexico, Costa Rica, and Panama, agriculture comprises less than 15% of labor.
 
 
 # Second Visualization
@@ -92,7 +92,7 @@ WB_Agriculture_Indicators %>%
        caption = "Source: World Bank, 2022" )
 ```
 
-The second visualization builds upon the policy question of the first visualization which is what the state of agriculture intensity is in Central America. This visualization shows the percentage of agricultural land per country for Central America. The results of this plot are interesting because the countries that had the highest participation in agriculture are not the same as those who have the most agricultural land. For example, Guatemala and Honduras had high levels of labor force participation in agriculture, but in this graph we can see that it is actually El Salvador and Mexico that have the most agricultural land. This would be a good opportunity for further investigation to better understand the agricultural land and labor patterns and the over or under-usage of land in these countries.
+The second visualization builds upon the policy question of the first visualization which is "What the state of agriculture intensity is in Central America?". This visualization shows the percentage of agricultural land per country for Central America. The results of this plot are interesting because the countries that had the highest participation in agriculture are not the same as those who have the most agricultural land. For example, Guatemala and Honduras had high levels of labor force participation in agriculture, but in this graph we can see that it is actually El Salvador and Mexico that have the most agricultural land. This would be a good opportunity for further investigation to better understand the agricultural land and labor patterns and the over or under-usage of land in these countries.
 
 # Third Visualization 
 
@@ -148,7 +148,7 @@ scatterplot_df %>%
 
 ```
 
-The third visualization takes the variables of interest from the first two visualizations and compares both the percentage of the labor force in agriculture and the land used for agriculture for each country. The grey points on the graph represent non-Central American countries and show how their statistics relate to general global patterns of agriculture workforce and land usage. The viewer is able to see that there is not a strong or consistent trend across the Central American region, which is in line with the insights from the previous graphs. 
+The third visualization takes the variables of interest from the first two visualizations and compares both the percentage of the labor force in agriculture and the land used for agriculture for each country. The grey data points on the graph represent non-Central American countries and show how their statistics relate to general global patterns of agriculture workforce and land usage. The viewer is able to see that there is not a strong or consistent trend across the Central American region, which is in-line with the insights from the previous graphs. 
 
 # Fourth Visualization
 
