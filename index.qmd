@@ -8,12 +8,15 @@ editor_options:
 execute: 
   warning: false
 ---
-# Introduction to assignment 
 
-## Source of data: 
+# Introduction to assignment
+
+## Source of data:
+
 [World Bank Databank](https://databank.worldbank.org/reports.aspx?source=2&Topic=1)
 
 ## Data cleaning
+
 ```{r}
 #Data cleaning
 library(tidyverse)
@@ -41,12 +44,12 @@ WB_Agriculture_Indicators$value <- as.numeric(WB_Agriculture_Indicators$value)
 
 ```
 
-
 # First Visualization
+
 ```{r}
 
 WB_Agriculture_Indicators %>%
-  filter(series_code == "SL.AGR.EMPL.FE.ZS") %>%
+  filter(series_code == "SL.AGR.EMPL.ZS") %>%
   filter(!is.na(value)) %>%
   filter(country == "Mexico" | country == "Guatemala" | country == "Honduras" 
          | country == "Nicaragua" | country == "El Salvador" | country == "Costa Rica" |
@@ -58,17 +61,15 @@ WB_Agriculture_Indicators %>%
   scale_color_manual(values = c("darkgreen", "cadetblue", "darkorange", "brown4", "darkblue", "darkgoldenrod", "darkorchid4", "gray44"))+
   theme_minimal() +
   theme(axis.text.y = element_blank())+
-  labs(title = "How has female participation in agriculture changed across Central America?",
-       subtitle = "Female percentage of agricultural labor force, as defined by the International Labor Organization, from 2000-2020",
+  labs(title = "How has participation in agriculture changed across Central America?",
+       subtitle = "Percent of labor force in agriculture, as defined by the International Labor Organization, from 2000-2020",
        x = "Year",
-       y = "% females in agricultural labor force",
+       y = "% in agricultural labor force",
        caption = "Source: World Bank, 2022")
 ```
 
 
-
 # Second Visualization
-
 
 ```{r}
 WB_Agriculture_Indicators %>%
@@ -79,13 +80,68 @@ WB_Agriculture_Indicators %>%
          | country == "Nicaragua" | country == "El Salvador" | country == "Costa Rica" |
            country == "Panama" | country == "Belize") %>%
   ggplot(mapping = aes(x = country, y = value)) +
-  geom_col(fill = "#993300") +
+  geom_col(fill = "#993300", width = .7) +
   geom_text(aes(label = round(value,1)), vjust = -1, size = 4) +
   theme_minimal() + 
   theme(axis.text.y = element_blank())+
   labs(title = "Percentage of Agricultural Land per Country in Central America",
-       subtitle = "Plot shows agricultural land as defined by the Food and Agriculture Organization, for the year 2018.",
+       subtitle = "Plot shows percentage of agricultural land as defined by the Food and Agriculture Organization, for the year 2018.",
        x=NULL,
        y = "% of Agricultural Land",
        caption = "Source: World Bank, 2022" )
 ```
+
+# Third Visualization 
+
+```{r}
+x <- WB_Agriculture_Indicators %>%
+  filter(year == 2018) %>%
+  filter(series_code == "AG.LND.AGRI.ZS") %>%
+  filter(!is.na(value)) %>%
+  pivot_wider(
+    names_from = series_code,
+    values_from = value
+  )   %>%
+  select(country, country_code, AG.LND.AGRI.ZS) 
+
+y <- WB_Agriculture_Indicators %>%
+  filter(year == 2018) %>%
+  filter(series_code == "SL.AGR.EMPL.ZS") %>%
+  filter(!is.na(value)) %>%
+  pivot_wider(
+    names_from = series_code,
+    values_from = value
+  )   %>%
+  select(country, country_code, SL.AGR.EMPL.ZS) 
+  
+
+scatterplot_df <- left_join(x = x, y = y, by = "country_code")
+
+scatterplot_df <- scatterplot_df %>% 
+  mutate(centam = if_else(
+    (country.x == "Mexico" | country.x == "Guatemala" | country.x == "Honduras" 
+         | country.x == "Nicaragua" | country.x == "El Salvador" | country.x == "Costa Rica" |
+           country.x == "Panama" | country.x == "Belize"),
+    true = 1,
+    false = 0
+  ))
+
+scatterplot_df %>%
+  filter(!is.na(SL.AGR.EMPL.ZS)) %>%
+  filter(!is.na(AG.LND.AGRI.ZS)) %>%
+  ggplot(mapping = aes(
+    x= AG.LND.AGRI.ZS, 
+    y = SL.AGR.EMPL.ZS,
+    color = as.character(centam))) +
+  geom_point (aes(shape = centam == 1),size = 2.5, alpha = .8, show.legend = FALSE) +
+  geom_text(aes(label = if_else(centam == "1", country_code, "")), show.legend = FALSE, vjust = -1)+
+  scale_color_manual(values = c("0" = "gray80", "1" = "dodgerblue4"))+
+  theme_minimal()+
+  labs( title = "What is the relationship between agricultural employment and land used for agriculture in Central America?",
+        subtitle = "Percentage of agricultural land and labor force by country for the year 2018. Definitions of labor force as defined by the International \nLabor Organization and definition of agricultural land as defined by the Food and Agriculture Organization.",
+        x = "% of land used for agriculture",
+        y = "% of labor force in agriculture",
+        caption = "Source: World Bank 2022")
+
+```
+
